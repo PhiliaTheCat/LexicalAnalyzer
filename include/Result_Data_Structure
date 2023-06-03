@@ -1,0 +1,34 @@
+#ifndef __INCLUDE_RESULT_DATA_STRUCTURE__
+    #define __INCLUDE_RESULT_DATA_STRUCTURE
+
+    #include <string>
+
+    namespace ptc
+    {
+        struct Token
+        {
+            public:
+                short attr;
+                int val; // point id list element, order by literal
+                         // default 0
+
+            public:
+                Token(const short &attr_in = -1, const int &val_in = -26);
+        }; // struct Token
+        
+        struct id_list_element
+        {
+            public:
+                std::string literal;
+                short idx;
+        }; // struct id_list_element
+
+        struct const_list_element
+        {
+            public:
+                std::string literal;
+                short idx;
+        }; // struct const_list_element
+
+    } // namespace ptc
+#endif // include Result_Data_Structure

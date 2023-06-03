@@ -1,0 +1,47 @@
+#ifndef __INCLUDE_MACROS__
+    #define __INCLUDE_MACROS__
+
+    #define NUMBER 0
+    #define IDENTIFER 1
+    #define L_R_BRACKET 2
+    #define R_R_BRACKET 3
+    #define L_C_BRACKET 4
+    #define R_C_BRACKET 5    
+    #define ASSIGN_OPERATOR 6
+    #define ENDLINE 7
+    #define ARITHMETIC_OPERATOR 8    
+    #define COMPARISON_OPERATOR 9
+    #define LOGIC_OPERATOR 10
+    #define TYPE 11
+    #define BOOL_CONST 12
+    #define BRANCH 13
+    #define OUTPUT 14
+
+
+    #define ADD -1
+    #define MINUS -2
+    #define MULT -3
+    #define DIV -4
+
+    #define LT -5
+    #define LTE -6
+    #define GT -7
+    #define GTE -8
+    #define EQ -10
+
+    #define AND -16
+    #define OR -17
+    #define NOT -18
+
+    #define INT -19
+    #define FLOAT -20
+    #define BOOL -21
+    
+    #define TRUE -22
+    #define FALSE -23
+
+    #define IF -24
+    #define ELSE -25
+
+    #define PRINT -26
+#endif 
