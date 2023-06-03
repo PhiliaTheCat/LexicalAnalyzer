@@ -1,0 +1,14 @@
+#ifndef __INCLUDE_DFA__
+    #define __INCLUDE_DFA__
+
+    #include <fstream>
+
+    #include "Result_Data_Structure"
+    
+    namespace ptc
+    {
+        bool num(const char &start, std::ifstream &fin, char *const buffer);
+        bool comp_and_assign(const char &start, std::ifstream &fin, Token &src);
+        bool id_and_key(const char &start, std::ifstream &fin, char *const buffer);
+    } // namesapce ptc
+#endif
