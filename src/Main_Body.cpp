@@ -1,3 +1,6 @@
+#include <cstring>
+#include <iostream>
+
 #include "../include/DFA"
 #include "../include/Macros"
 
@@ -17,7 +20,7 @@ string attr_arr[15] =
 string key_arr[27] = 
 {
     "", "+", "-", "*",
-    "/", "<", "<=", ">"
+    "/", "<", "<=", ">",
     ">=", "" , "==", "",
     "", "", "", "",
     "&", "|", "!", "int", 
@@ -33,14 +36,22 @@ Token token_list[2000];
 int id_list_length = 0;
 int const_list_length = 0;
 
+void analyzer(const char *dir1, const char *dir2);
 template<class ListType> bool find(ListType list[], const int &n, Token &src, const std::string &literal);
 template<class ListType> void insert(ListType list[], int &n, Token &src, const std::string &literal);
 void output(int n);
 
 int main()
 {
-    fin.open("test/test_in.in", ios::in);
-    fout.open("test/test_out.out", ios::out);
+    analyzer("./test/test1_in.in", "./test/test1_out.out");
+}
+
+void analyzer(const char *dir1, const char *dir2)
+{
+    fin.open(dir1, ios::in);
+    fout.open(dir2, ios::out);
+
+    fin.tie(0);
 
     bool global_acc = true;
 
@@ -123,10 +134,11 @@ int main()
                 token_list[i].val = -(AND);
             else if (p == '|')
                 token_list[i].val = -(OR);
-            else if (p == '!')
+            else // if (p == '!')
                 token_list[i].val = -(NOT);
+            i += 1;
         }
-        else if (p >= 'a' && p <= 'z' || p >= 'a' && p <= 'z' || p == '_')
+        else if (p >= 'a' && p <= 'z' || p >= 'A' && p <= 'Z' || p == '_')
         {
             char *buffer = new char [1024];
             if (id_and_key(p, fin, buffer))
@@ -156,12 +168,13 @@ int main()
                     else // if (j >= -(IF) && j <= -(ElSE))
                         token_list[i].attr = BOOL_CONST;
                     token_list[i].val = j;
+                    i += 1;
                 }
             }
             else
             {
                 fout << "Head + " << i << " Token" << endl;
-                fout << "Error: " << "\"" << buffer << " is not a number" << endl;
+                fout << "Error: " << "\"" << buffer << "\" is not a identifier" << endl;
                 delete [] buffer;
                 global_acc = false;
                 break;
@@ -173,7 +186,8 @@ int main()
         output(i);
     else
         fout << "Analysis Terminated" << endl;
-
+    fin.close();
+    fout.close();
 }
 
 template<class ListType> bool find(ListType list[], const int &n, Token &src, const std::string &literal)

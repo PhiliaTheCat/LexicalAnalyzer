@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "../include/DFA"
 #include "../include/Macros"
 
@@ -16,13 +18,12 @@ namespace ptc
             if (fin.eof())
             {
                 buffer[i] = 0;
-                fin.seekg(-1, std::ios::cur);
                 return true;
             }
             if (p < 33) // white space and control symbol
             {
                 buffer[i] = 0;
-                fin.seekg(-1, std::ios::cur);
+                fin.unget();
                 return true;
             }
             else if (p >= '0' && p <= '9' || p == '.') // digits and dot
@@ -35,7 +36,7 @@ namespace ptc
             else if (p == ';') // endline
             {
                 buffer[i] = 0;
-                fin.seekg(-1, std::ios::cur);
+                fin.unget();
                 return true;
             }
             else if
@@ -45,19 +46,19 @@ namespace ptc
             ) // arithmetic operators, comparison operators, assignment operator
             {
                 buffer[i] = 0;
-                fin.seekg(-1, std::ios::cur);
+                fin.unget();
                 return true;
             }
             else if (p == '&' || p == '|') // logic operators expect '!'
             {
                 buffer[i] = 0;
-                fin.seekg(-1, std::ios::cur);
+                fin.unget();
                 return true;
             }
             else if (p == ')') // right round bracket
             {
                 buffer[i] = 0;
-                fin.seekg(-1, std::ios::cur);
+                fin.unget();
                 return true;
             }
             else if
@@ -107,7 +108,7 @@ namespace ptc
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = LT;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if
@@ -119,14 +120,14 @@ namespace ptc
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = LT;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if (p == ' ')
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = LT;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else
@@ -140,7 +141,7 @@ namespace ptc
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = GT;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if
@@ -152,14 +153,14 @@ namespace ptc
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = GT;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if (p == ' ')
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = GT;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else
@@ -172,7 +173,7 @@ namespace ptc
                 else if (p < 33)
                 {
                     src.attr = ASSIGN_OPERATOR;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if
@@ -183,19 +184,19 @@ namespace ptc
                 )
                 {
                     src.attr = ASSIGN_OPERATOR;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if (p == ' ')
                 {
                     src.attr = ASSIGN_OPERATOR;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if (p == '(' || p == '+' || p == '-' || p == '!')
                 {
                     src.attr = ASSIGN_OPERATOR;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else
@@ -207,7 +208,7 @@ namespace ptc
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = GTE;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if
@@ -219,21 +220,21 @@ namespace ptc
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = GTE;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if (p == ' ')
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = GTE;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if (p == '(' || p == '+' || p == '-' || p == '!')
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = GTE;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else
@@ -245,7 +246,7 @@ namespace ptc
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = LTE;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if
@@ -257,21 +258,21 @@ namespace ptc
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = LTE;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if (p == ' ')
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = LTE;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if (p == '(' || p == '+' || p == '-' || p == '!')
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = LTE;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else
@@ -283,7 +284,7 @@ namespace ptc
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = EQ;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if
@@ -295,21 +296,21 @@ namespace ptc
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = EQ;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if (p == ' ')
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = EQ;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else if (p == '(' || p == '+' || p == '-' || p == '!')
                 {
                     src.attr = COMPARISON_OPERATOR;
                     src.val = EQ;
-                    fin.seekg(-1, std::ios::cur);
+                    fin.unget();
                     return true;
                 }
                 else
@@ -330,7 +331,7 @@ namespace ptc
         int i = 0;
         buffer[i] = start;
         i += 1;
-        char p;
+        char p = 0;
         int status = 0;
         while (1)
         {
@@ -338,12 +339,12 @@ namespace ptc
             if (fin.eof())
             {
                 buffer[i] = 0;
-                fin.seekg(-1, std::ios::cur);
+                fin.unget();
                 return true;
             }
             if
             (
-                p >= 'a' && p <- 'z' ||
+                p >= 'A' && p <= 'Z' ||
                 p >= 'a' && p <= 'z' ||
                 p == '_' ||
                 p >= '0' && p <= '9'
@@ -355,16 +356,16 @@ namespace ptc
             else if (p < 33)
             {
                 buffer[i] = 0;
-                fin.seekg(-1, std::ios::cur);
+                fin.unget();
                 return true;
             }
             else if (p == '+' || p == '-' || p == '*' || p == '/')
             {
                 buffer[i] = 0;
-                fin.seekg(-1, std::ios::cur);
+                fin.unget();
                 return true;
             }
-            else if (p >= 66 && p <= 69 || p == 71 || p == 78 || p == 90 || p == 95)
+            else if (p >= 34 && p <= 37 || p == 39 || p == 46 || p == 58 || p == 63)
             {
                 buffer[i] = p;
                 i += 1;
@@ -373,10 +374,9 @@ namespace ptc
             }
             else
             {
-                buffer[i] = p;
-                i += 1;
                 buffer[i] = 0;
-                return false;
+                fin.unget();
+                return true;
             }
         }
     }
